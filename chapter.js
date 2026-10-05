@@ -1,5 +1,5 @@
 const params = new URLSearchParams(window.location.search);
-const chapterId = params.get("id");
+const chapterId = params.get("id") || "prologue";
 
 const chapterContainer = document.getElementById("chapter");
 const previousButton = document.getElementById("prev");
