@@ -1,74 +1,67 @@
 const params = new URLSearchParams(window.location.search);
 const chapterId = params.get("id");
 
+const chapterContainer = document.getElementById("chapter");
+const previousButton = document.getElementById("prev");
+const nextButton = document.getElementById("next");
+
 fetch("chapters.json")
   .then(response => response.json())
   .then(chapters => {
-    const currentIndex = chapters.findIndex(chapter => chapter.id === chapterId);
+    const currentIndex = chapters.findIndex(
+      chapter => chapter.id === chapterId
+    );
 
     if (currentIndex === -1) {
-      document.getElementById("chapter-content").innerHTML =
-        "<p>Chapter not found.</p>";
+      chapterContainer.innerHTML = "<p>Chapter not found.</p>";
       return;
     }
 
     const chapter = chapters[currentIndex];
 
-    document.getElementById("chapter-title").textContent = chapter.title;
+    return fetch(chapter.file)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Chapter file could not be loaded.");
+        }
+        return response.text();
+      })
+      .then(markdown => {
+        const lines = markdown.split(/\r?\n/);
 
-    const previousButton = document.getElementById("previous-chapter");
-    const nextButton = document.getElementById("next-chapter");
+        chapterContainer.innerHTML = lines.map(line => {
+          const text = line.trim();
 
-    if (currentIndex > 0) {
-      previousButton.onclick = () => {
-        window.location.href =
-          `chapter.html?id=${chapters[currentIndex - 1].id}`;
-      };
-      previousButton.disabled = false;
-    } else {
-      previousButton.disabled = true;
-    }
+          if (!text) {
+            return "<br>";
+          }
 
-    if (currentIndex < chapters.length - 1) {
-      nextButton.onclick = () => {
-        window.location.href =
-          `chapter.html?id=${chapters[currentIndex + 1].id}`;
-      };
-      nextButton.disabled = false;
-    } else {
-      nextButton.disabled = true;
-    }
+          if (text.startsWith("# ")) {
+            return `<h1>${text.substring(2)}</h1>`;
+          }
 
-    return fetch(chapter.file);
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error("Chapter file could not be loaded.");
-    }
-    return response.text();
-  })
-  .then(markdown => {
-    const content = document.getElementById("chapter-content");
+          return `<p>${text}</p>`;
+        }).join("");
 
-    const lines = markdown.split(/\r?\n/);
+        if (currentIndex > 0) {
+          previousButton.textContent = "Previous Chapter";
+          previousButton.href =
+            `chapter.html?id=${chapters[currentIndex - 1].id}`;
+        } else {
+          previousButton.style.display = "none";
+        }
 
-    content.innerHTML = lines.map(line => {
-      const trimmed = line.trim();
-
-      if (!trimmed) {
-        return "<br>";
-      }
-
-      if (trimmed.startsWith("# ")) {
-        return `<h1>${trimmed.substring(2)}</h1>`;
-      }
-
-      return `<p>${trimmed}</p>`;
-    }).join("");
+        if (currentIndex < chapters.length - 1) {
+          nextButton.textContent = "Next Chapter";
+          nextButton.href =
+            `chapter.html?id=${chapters[currentIndex + 1].id}`;
+        } else {
+          nextButton.style.display = "none";
+        }
+      });
   })
   .catch(error => {
     console.error(error);
-
-    document.getElementById("chapter-content").innerHTML =
+    chapterContainer.innerHTML =
       "<p>Unable to load this chapter.</p>";
   });
