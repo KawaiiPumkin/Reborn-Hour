@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+* { box-sizing: border-box; }
+body { margin:0; background:#0b0b0f; color:#e9e5df; font-family:Inter, sans-serif; line-height:1.8; }
+a { color:inherit; text-decoration:none; }
+nav { padding:20px 7%; border-bottom:1px solid #24242a; display:flex; justify-content:space-between; }
+.brand { font-family:'Cormorant Garamond',serif; font-size:28px; }
+.container { max-width:850px; margin:0 auto; padding:55px 22px; }
+h1,h2 { font-family:'Cormorant Garamond',serif; }
+h1 { font-size:48px; line-height:1.1; }
+h2 { font-size:30px; }
+p { margin:0 0 18px; }
+.hero { min-height:70vh; display:flex; align-items:center; }
+.button { display:inline-block; padding:12px 20px; border:1px solid #555; border-radius:8px; margin-top:20px; }
+.card { border:1px solid #292930; border-radius:12px; padding:22px; margin:18px 0; }
+.meta { color:#9b9ba4; }
+footer { border-top:1px solid #24242a; padding:25px 7%; color:#8e8e98; font-size:14px; }
+.reader-nav { display:flex; justify-content:space-between; gap:15px; margin-top:40px; }
+@media(max-width:600px){ h1{font-size:38px}.container{padding:40px 18px} }
