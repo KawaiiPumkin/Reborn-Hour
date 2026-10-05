@@ -2,16 +2,16 @@
   {
     "id": "prologue",
     "title": "The Angel Was Born",
-    "file": "chapters/prologue.md"
+    "file": "prologue.md"
   },
   {
     "id": "chapter-01",
     "title": "A New Beginning",
-    "file": "chapters/chapter-01.md"
+    "file": "chapter-01.md"
   },
   {
     "id": "chapter-02",
     "title": "The Quiet Employee",
-    "file": "chapters/chapter-02.md"
+    "file": "chapter-02.md"
   }
 ]
