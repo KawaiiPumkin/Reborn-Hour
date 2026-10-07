@@ -1,5 +1,20 @@
 <!doctype html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reborn Hour</title><link rel="stylesheet" href="style.css"></head>
 <body><nav><a class="brand" href="index.html">Reborn Hour</a><a href="chapters.html">Chapters</a></nav>
-<main class="container hero"><div><p class="meta">A novel by Kawaii Pumkin</p><h1>Reborn Hour</h1><p>A story about fate, healing, second chances, and the future we choose.</p><a class="button" href="chapter.html?id=prologue">Start Reading</a></div></main>
-<footer>© 2026 Kawaii Pumkin. All rights reserved.</footer></body></html>
+<main class="container hero"><div><p class="meta">A novel by Kawaii Pumkin</p><h1>Reborn Hour</h1><p>A story about fate, healing, second chances, and the future we choose.</p><a class="button" href="chapter.html?id=prologue">Start Reading</a><p id="reader-count" class="meta">Loading reader count...</p></div></main>
+<footer>© 2026 Kawaii Pumkin. All rights reserved.</footer>
+<script>
+const COUNTER_BASE = "https://countapi.mileshilliard.com/api/v1";
+const TOTAL_KEY = "reborn_hour_kawaii_pumkin_7f3a91_total_reads";
+
+fetch(`${COUNTER_BASE}/get/${encodeURIComponent(TOTAL_KEY)}`)
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById("reader-count").textContent =
+      "Total chapter reads: " + Number(data.value || 0).toLocaleString();
+  })
+  .catch(() => {
+    document.getElementById("reader-count").textContent = "";
+  });
+</script>
+</body></html>
