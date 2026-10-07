@@ -5,6 +5,19 @@ const chapterContainer = document.getElementById("chapter");
 const previousButton = document.getElementById("prev");
 const nextButton = document.getElementById("next");
 
+const COUNTER_BASE = "https://countapi.mileshilliard.com/api/v1";
+const COUNTER_NAMESPACE = "reborn_hour_kawaii_pumkin_7f3a91";
+
+function trackChapterRead(id) {
+  const key = encodeURIComponent(COUNTER_NAMESPACE + "_chapter_" + id);
+  const totalKey = encodeURIComponent(COUNTER_NAMESPACE + "_total_reads");
+
+  Promise.all([
+    fetch(`${COUNTER_BASE}/hit/${key}`),
+    fetch(`${COUNTER_BASE}/hit/${totalKey}`)
+  ]).catch(error => console.error("Reader counter error:", error));
+}
+
 fetch("chapters.json")
   .then(response => response.json())
   .then(chapters => {
@@ -16,6 +29,8 @@ fetch("chapters.json")
       chapterContainer.innerHTML = "<p>Chapter not found.</p>";
       return;
     }
+
+    trackChapterRead(chapterId);
 
     const chapter = chapters[currentIndex];
 
