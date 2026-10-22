@@ -1,50 +1,306 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
 
 * { box-sizing: border-box; }
-body { margin:0; background:#0b0b0f; color:#e9e5df; font-family:Inter, sans-serif; line-height:1.8; }
-a { color:inherit; text-decoration:none; }
-nav { padding:20px 7%; border-bottom:1px solid #24242a; display:flex; justify-content:space-between; }
-.brand { font-family:'Cormorant Garamond',serif; font-size:28px; }
-.container { max-width:850px; margin:0 auto; padding:55px 22px; }
-h1,h2 { font-family:'Cormorant Garamond',serif; }
-h1 { font-size:48px; line-height:1.1; }
-h2 { font-size:30px; }
-p { margin:0 0 18px; }
-.hero { min-height:70vh; display:flex; align-items:center; }
-.button { display:inline-block; padding:12px 20px; border:1px solid #555; border-radius:8px; margin-top:20px; }
-.card { border:1px solid #292930; border-radius:12px; padding:22px; margin:18px 0; }
-.meta { color:#9b9ba4; }
-footer { border-top:1px solid #24242a; padding:25px 7%; color:#8e8e98; font-size:14px; }
-.reader-nav { display:flex; justify-content:space-between; gap:15px; margin-top:40px; }
-@media(max-width:600px){ h1{font-size:38px}.container{padding:40px 18px} }
 
+html { scroll-behavior: smooth; }
 
-/* Chapter list redesign */
-.chapters-page { max-width:920px; margin:0 auto; padding:70px 22px 90px; }
-.chapters-header { max-width:680px; margin:0 auto 60px; text-align:center; }
-.eyebrow { margin:0 0 10px; color:#8e8e98; font-size:12px; font-weight:600; letter-spacing:.22em; }
-.chapters-header h1 { margin:0 0 15px; }
-.chapters-intro { margin:0; color:#9b9ba4; font-size:15px; line-height:1.8; }
-.arc-section { margin:0 0 52px; }
-.arc-heading { display:flex; align-items:center; gap:16px; margin-bottom:18px; }
-.arc-heading span { height:1px; flex:1; background:#292930; }
-.arc-heading h2 { margin:0; color:#bdb9b3; font-size:19px; font-weight:600; letter-spacing:.03em; white-space:nowrap; }
-.chapter-card { display:flex; align-items:center; min-height:78px; padding:15px 20px; margin-bottom:12px; border:1px solid #292930; border-radius:12px; background:#101015; transition:transform 160ms ease,border-color 160ms ease,background 160ms ease; }
-.chapter-card:hover { transform:translateY(-2px); border-color:#55555e; background:#14141a; }
-.chapter-number { width:58px; color:#777781; font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:600; flex-shrink:0; }
-.chapter-info { min-width:0; display:flex; flex-direction:column; }
-.chapter-label { color:#777781; font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
-.chapter-title { margin-top:2px; color:#e9e5df; font-family:'Cormorant Garamond',serif; font-size:23px; line-height:1.25; }
-.chapter-arrow { margin-left:auto; padding-left:18px; color:#777781; font-size:20px; transition:transform 160ms ease,color 160ms ease; }
-.chapter-card:hover .chapter-arrow { transform:translateX(4px); color:#e9e5df; }
-.chapter-error { text-align:center; color:#9b9ba4; }
-@media(max-width:600px) {
-  .chapters-page { padding:50px 16px 70px; }
-  .chapters-header { margin-bottom:45px; }
-  .arc-heading { gap:10px; }
-  .arc-heading h2 { font-size:16px; }
-  .chapter-card { min-height:70px; padding:13px 14px; }
-  .chapter-number { width:45px; font-size:21px; }
-  .chapter-title { font-size:20px; }
-  .chapter-arrow { padding-left:10px; font-size:17px; }
+body {
+  margin: 0;
+  background: #0b0b0f;
+  color: #e9e5df;
+  font-family: Inter, sans-serif;
+  line-height: 1.8;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-nav {
+  position: relative;
+  z-index: 10;
+  padding: 20px 7%;
+  border-bottom: 1px solid #24242a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 8px 14px;
+  border: 1px solid #292930;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  background: #14141a;
+  border-color: #55555e;
+}
+
+.container {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 55px 22px;
+}
+
+h1, h2 {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+p { margin: 0 0 18px; }
+
+.hero {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  display: inline-block;
+  padding: 12px 20px;
+  border: 1px solid #555;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.card {
+  border: 1px solid #292930;
+  border-radius: 12px;
+  padding: 22px;
+  margin: 18px 0;
+}
+
+.meta { color: #9b9ba4; }
+
+footer {
+  border-top: 1px solid #24242a;
+  padding: 25px 7%;
+  color: #8e8e98;
+  font-size: 14px;
+}
+
+.reader-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 40px;
+}
+
+/* Chapters page */
+.chapters-page {
+  width: min(920px, 100%);
+  margin: 0 auto;
+  padding: 70px 22px 90px;
+}
+
+.chapters-header {
+  max-width: 680px;
+  margin: 0 auto 60px;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #8e8e98;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .22em;
+}
+
+.chapters-header h1 {
+  margin: 0 0 15px;
+}
+
+.chapters-intro {
+  margin: 0;
+  color: #9b9ba4;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.arc-section {
+  margin: 0 0 52px;
+}
+
+.arc-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.arc-line {
+  height: 1px;
+  flex: 1 1 auto;
+  min-width: 20px;
+  background: #292930;
+}
+
+.arc-heading h2 {
+  margin: 0;
+  color: #bdb9b3;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.chapter-card {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) 30px;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 78px;
+  padding: 15px 20px;
+  margin-bottom: 12px;
+  border: 1px solid #292930;
+  border-radius: 12px;
+  background: #101015;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.chapter-card:hover,
+.chapter-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: #55555e;
+  background: #14141a;
+  outline: none;
+}
+
+.chapter-number {
+  color: #777781;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.chapter-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chapter-label {
+  color: #777781;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.chapter-title {
+  margin-top: 3px;
+  color: #e9e5df;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 23px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.chapter-arrow {
+  justify-self: end;
+  color: #777781;
+  font-size: 20px;
+  line-height: 1;
+  transition: transform 160ms ease, color 160ms ease;
+}
+
+.chapter-card:hover .chapter-arrow,
+.chapter-card:focus-visible .chapter-arrow {
+  transform: translateX(4px);
+  color: #e9e5df;
+}
+
+.chapter-error {
+  text-align: center;
+  color: #9b9ba4;
+}
+
+@media (max-width: 600px) {
+  .site-nav {
+    padding: 16px;
+  }
+
+  .brand {
+    font-size: 25px;
+  }
+
+  .chapters-page {
+    padding: 50px 16px 70px;
+  }
+
+  .chapters-header {
+    margin-bottom: 45px;
+  }
+
+  .arc-heading {
+    gap: 9px;
+  }
+
+  .arc-heading h2 {
+    font-size: 16px;
+    max-width: 75%;
+  }
+
+  .chapter-card {
+    grid-template-columns: 42px minmax(0, 1fr) 22px;
+    gap: 10px;
+    min-height: 72px;
+    padding: 13px 14px;
+  }
+
+  .chapter-number {
+    font-size: 21px;
+  }
+
+  .chapter-title {
+    font-size: 20px;
+  }
+
+  .chapter-arrow {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 380px) {
+  .chapter-card {
+    grid-template-columns: 36px minmax(0, 1fr) 18px;
+    gap: 8px;
+    padding: 12px 11px;
+  }
+
+  .chapter-title {
+    font-size: 18px;
+  }
+
+  .chapter-label {
+    font-size: 10px;
+  }
 }
