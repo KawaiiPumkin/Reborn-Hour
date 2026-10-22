@@ -447,6 +447,7 @@ footer {
 
 
 
+
 /* Reader */
 .container {
   width: min(720px, calc(100% - 34px));
@@ -470,10 +471,10 @@ footer {
 
 #chapter p {
   margin: 0 0 1.05em;
-  color: #dfe7ec;
+  color: #e3e9ed;
   font-family: 'Cormorant Garamond', serif;
   font-size: 19px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.78;
   overflow-wrap: break-word;
 }
@@ -488,16 +489,16 @@ footer {
 }
 
 .reader-nav .button {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 46px;
   display: grid;
   place-items: center;
   padding: 0;
   border: 1px solid var(--line-strong);
-  border-radius: 50%;
+  border-radius: 12px;
   color: var(--silver);
   font-family: Inter, sans-serif;
-  font-size: 25px;
+  font-size: 28px;
   font-weight: 500;
   line-height: 1;
   transition: .2s ease;
@@ -524,11 +525,17 @@ footer {
 
   #chapter p {
     font-size: 17px;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.72;
   }
 
   .reader-nav {
     margin-top: 42px;
+  }
+
+  .reader-nav .button {
+    width: 50px;
+    height: 44px;
+    font-size: 27px;
   }
 }
