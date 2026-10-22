@@ -7,6 +7,7 @@ const nextButton = document.getElementById("next");
 
 const COUNTER_BASE = "https://countapi.mileshilliard.com/api/v1";
 const COUNTER_NAMESPACE = "reborn_hour_kawaii_pumkin_7f3a91";
+const RAW_BASE = "https://raw.githubusercontent.com/KawaiiPumkin/Reborn-Hour/main/";
 
 const BUILTIN_CHAPTERS = [
   ["prologue","The Angel Was Born","prologue.md"],
@@ -33,46 +34,73 @@ const BUILTIN_CHAPTERS = [
 function trackChapterRead(id) {
   const key = encodeURIComponent(COUNTER_NAMESPACE + "_chapter_" + id);
   const totalKey = encodeURIComponent(COUNTER_NAMESPACE + "_total_reads");
-  Promise.all([fetch(`${COUNTER_BASE}/hit/${key}`),fetch(`${COUNTER_BASE}/hit/${totalKey}`)])
-    .catch(error => console.error("Reader counter error:", error));
+  Promise.all([
+    fetch(`${COUNTER_BASE}/hit/${key}`),
+    fetch(`${COUNTER_BASE}/hit/${totalKey}`)
+  ]).catch(error => console.error("Reader counter error:", error));
+}
+
+async function fetchChapterFile(file) {
+  const urls = [
+    file + "?v=6",
+    RAW_BASE + encodeURIComponent(file) + "?v=6"
+  ];
+
+  let lastError = null;
+
+  for (const url of urls) {
+    try {
+      const response = await fetch(url, {cache:"no-store"});
+      if (response.ok) return await response.text();
+      lastError = new Error("HTTP " + response.status + " for " + url);
+    } catch (error) {
+      lastError = error;
+    }
+  }
+
+  throw lastError || new Error("Unable to load " + file);
 }
 
 async function loadReader() {
   try {
     let chapters = BUILTIN_CHAPTERS.slice();
+
     try {
-      const response = await fetch("chapters.json?v=5", {cache:"no-store"});
+      const response = await fetch("chapters.json?v=6", {cache:"no-store"});
       if (response.ok) {
         const remote = await response.json();
         const map = new Map((Array.isArray(remote) ? remote : []).map(ch => [ch.id,ch]));
         chapters = BUILTIN_CHAPTERS.map(ch => map.get(ch.id) || ch);
-        for (const ch of map.values()) if (!chapters.some(x => x.id === ch.id)) chapters.push(ch);
+        for (const ch of map.values()) {
+          if (!chapters.some(x => x.id === ch.id)) chapters.push(ch);
+        }
       }
-    } catch (e) {
-      console.warn("Using built-in chapter list.", e);
+    } catch (error) {
+      console.warn("Using built-in chapter list.", error);
     }
 
     const currentIndex = chapters.findIndex(ch => ch.id === chapterId);
     if (currentIndex === -1) throw new Error("Chapter not found: " + chapterId);
 
     trackChapterRead(chapterId);
+
     const chapter = chapters[currentIndex];
-
-    const response = await fetch(chapter.file + "?v=5", {cache:"no-store"});
-    if (!response.ok) throw new Error("Chapter file could not be loaded: " + chapter.file);
-
-    const markdown = await response.text();
-    const lines = markdown.split(/\r?\n/);
+    const markdown = await fetchChapterFile(chapter.file);
+    const lines = markdown.replace(/^\uFEFF/, "").split(/\r?\n/);
 
     chapterContainer.innerHTML = lines.map(line => {
-      const text = line.trim();
-      if (!text) return "<br>";
-      if (text.startsWith("# ")) return `<h1>${escapeHtml(text.substring(2))}</h1>`;
-      return `<p>${escapeHtml(text)}</p>`;
+      const value = line.trim();
+      if (!value) return "<br>";
+      if (value.startsWith("# ")) {
+        return `<h1>${escapeHtml(value.substring(2))}</h1>`;
+      }
+      return `<p>${escapeHtml(value)}</p>`;
     }).join("");
 
     if (currentIndex > 0) {
-      previousButton.textContent = "Previous Chapter";
+      previousButton.textContent = "←";
+      previousButton.setAttribute("aria-label", "Previous chapter");
+      previousButton.title = "Previous chapter";
       previousButton.href = "chapter.html?id=" + encodeURIComponent(chapters[currentIndex - 1].id);
       previousButton.style.display = "";
     } else {
@@ -80,7 +108,9 @@ async function loadReader() {
     }
 
     if (currentIndex < chapters.length - 1) {
-      nextButton.textContent = "Next Chapter";
+      nextButton.textContent = "→";
+      nextButton.setAttribute("aria-label", "Next chapter");
+      nextButton.title = "Next chapter";
       nextButton.href = "chapter.html?id=" + encodeURIComponent(chapters[currentIndex + 1].id);
       nextButton.style.display = "";
     } else {
@@ -88,7 +118,7 @@ async function loadReader() {
     }
   } catch (error) {
     console.error(error);
-    chapterContainer.innerHTML = "<p>Unable to load this chapter right now.</p>";
+    chapterContainer.innerHTML = "<p>Unable to load this chapter right now. Please refresh the page.</p>";
   }
 }
 
