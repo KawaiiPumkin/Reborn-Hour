@@ -48,7 +48,7 @@ async function loadChapters() {
   if (!list) return;
 
   try {
-    const response = await fetch("chapters.json?v=3", { cache: "no-store" });
+    const response = await fetch("chapters.json?v=4", { cache: "no-store" });
     if (!response.ok) throw new Error("Unable to load chapters.");
     const chapters = await response.json();
 
