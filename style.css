@@ -17,3 +17,34 @@ p { margin:0 0 18px; }
 footer { border-top:1px solid #24242a; padding:25px 7%; color:#8e8e98; font-size:14px; }
 .reader-nav { display:flex; justify-content:space-between; gap:15px; margin-top:40px; }
 @media(max-width:600px){ h1{font-size:38px}.container{padding:40px 18px} }
+
+
+/* Chapter list redesign */
+.chapters-page { max-width:920px; margin:0 auto; padding:70px 22px 90px; }
+.chapters-header { max-width:680px; margin:0 auto 60px; text-align:center; }
+.eyebrow { margin:0 0 10px; color:#8e8e98; font-size:12px; font-weight:600; letter-spacing:.22em; }
+.chapters-header h1 { margin:0 0 15px; }
+.chapters-intro { margin:0; color:#9b9ba4; font-size:15px; line-height:1.8; }
+.arc-section { margin:0 0 52px; }
+.arc-heading { display:flex; align-items:center; gap:16px; margin-bottom:18px; }
+.arc-heading span { height:1px; flex:1; background:#292930; }
+.arc-heading h2 { margin:0; color:#bdb9b3; font-size:19px; font-weight:600; letter-spacing:.03em; white-space:nowrap; }
+.chapter-card { display:flex; align-items:center; min-height:78px; padding:15px 20px; margin-bottom:12px; border:1px solid #292930; border-radius:12px; background:#101015; transition:transform 160ms ease,border-color 160ms ease,background 160ms ease; }
+.chapter-card:hover { transform:translateY(-2px); border-color:#55555e; background:#14141a; }
+.chapter-number { width:58px; color:#777781; font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:600; flex-shrink:0; }
+.chapter-info { min-width:0; display:flex; flex-direction:column; }
+.chapter-label { color:#777781; font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
+.chapter-title { margin-top:2px; color:#e9e5df; font-family:'Cormorant Garamond',serif; font-size:23px; line-height:1.25; }
+.chapter-arrow { margin-left:auto; padding-left:18px; color:#777781; font-size:20px; transition:transform 160ms ease,color 160ms ease; }
+.chapter-card:hover .chapter-arrow { transform:translateX(4px); color:#e9e5df; }
+.chapter-error { text-align:center; color:#9b9ba4; }
+@media(max-width:600px) {
+  .chapters-page { padding:50px 16px 70px; }
+  .chapters-header { margin-bottom:45px; }
+  .arc-heading { gap:10px; }
+  .arc-heading h2 { font-size:16px; }
+  .chapter-card { min-height:70px; padding:13px 14px; }
+  .chapter-number { width:45px; font-size:21px; }
+  .chapter-title { font-size:20px; }
+  .chapter-arrow { padding-left:10px; font-size:17px; }
+}
