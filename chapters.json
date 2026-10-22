@@ -1,17 +1,82 @@
 [
-  {"id":"prologue","title":"The Angel Was Born","file":"prologue.md"},
-  {"id":"chapter-01","title":"A New Beginning","file":"chapter-01.md"},
-  {"id":"chapter-02","title":"The Quiet Employee","file":"chapter-02.md"},
-  {"id":"chapter-03","title":"You're Training Her","file":"chapter-03.md"},
-  {"id":"chapter-04","title":"You're Worse Than Me","file":"chapter-04.md"},
-  {"id":"chapter-05","title":"Don't Give Up","file":"chapter-05.md"},
-  {"id":"chapter-06","title":"The Smile","file":"chapter-06.md"},
-  {"id":"chapter-07","title":"Two Broken People","file":"chapter-07.md"},
-  {"id":"chapter-08","title":"The Apartment","file":"chapter-08.md"},
-  {"id":"chapter-09","title":"A Strange Advertisement","file":"chapter-09.md"},
-  {"id":"chapter-10","title":"Same Building","file":"chapter-10.md"},
-  {"id":"chapter-11","title":"Don't Let Me Cook","file":"chapter-11.md"},
-  {"id":"chapter-12","title":"Seo-jun Knows","file":"chapter-12.md"},
-  {"id":"chapter-13","title":"The First Shadow","file":"chapter-13.md"},
-  {"id":"chapter-14","title":"Someone From Before","file":"chapter-14.md"}
+  {
+    "id": "prologue",
+    "title": "The Angel Was Born",
+    "file": "prologue.md"
+  },
+  {
+    "id": "chapter-01",
+    "title": "A New Beginning",
+    "file": "chapter-01.md"
+  },
+  {
+    "id": "chapter-02",
+    "title": "The Quiet Employee",
+    "file": "chapter-02.md"
+  },
+  {
+    "id": "chapter-03",
+    "title": "You're Training Her",
+    "file": "chapter-03.md"
+  },
+  {
+    "id": "chapter-04",
+    "title": "You're Worse Than Me",
+    "file": "chapter-04.md"
+  },
+  {
+    "id": "chapter-05",
+    "title": "Don't Give Up",
+    "file": "chapter-05.md"
+  },
+  {
+    "id": "chapter-06",
+    "title": "The Smile",
+    "file": "chapter-06.md"
+  },
+  {
+    "id": "chapter-07",
+    "title": "Two Broken People",
+    "file": "chapter-07.md"
+  },
+  {
+    "id": "chapter-08",
+    "title": "The Apartment",
+    "file": "chapter-08.md"
+  },
+  {
+    "id": "chapter-09",
+    "title": "A Strange Advertisement",
+    "file": "chapter-09.md"
+  },
+  {
+    "id": "chapter-10",
+    "title": "Same Building",
+    "file": "chapter-10.md"
+  },
+  {
+    "id": "chapter-11",
+    "title": "Don't Let Me Cook",
+    "file": "chapter-11.md"
+  },
+  {
+    "id": "chapter-12",
+    "title": "Seo-jun Knows",
+    "file": "chapter-12.md"
+  },
+  {
+    "id": "chapter-13",
+    "title": "The First Shadow",
+    "file": "chapter-13.md"
+  },
+  {
+    "id": "chapter-14",
+    "title": "Someone From Before",
+    "file": "chapter-14.md"
+  },
+  {
+    "id": "chapter-15",
+    "title": "Min-seo",
+    "file": "chapter-15.md"
+  }
 ]
