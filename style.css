@@ -444,3 +444,51 @@ footer {
 
   .chapter-title { font-size: 19px; }
 }
+
+
+/* Reader sizing */
+.container {
+  width: min(720px, calc(100% - 34px));
+  margin: 0 auto;
+  padding: 58px 0 80px;
+}
+#chapter {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+}
+#chapter h1 {
+  margin: 0 0 38px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(34px, 8vw, 52px);
+  font-weight: 500;
+  line-height: 1.08;
+}
+#chapter p {
+  margin: 0 0 1.05em;
+  color: #d9e1e7;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  line-height: 1.78;
+  overflow-wrap: break-word;
+}
+.reader-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.reader-nav .button {
+  padding: 10px 14px;
+  border: 1px solid var(--line-strong);
+  color: var(--silver);
+  font-size: 12px;
+}
+@media (max-width:600px) {
+  .container { width: min(100% - 34px, 660px); padding: 38px 0 64px; }
+  #chapter h1 { margin-bottom: 30px; font-size: 35px; }
+  #chapter p { font-size: 17px; line-height: 1.72; }
+  .reader-nav { margin-top: 42px; }
+}
