@@ -322,19 +322,31 @@ function escapeHtml(value) {
 function createOstPlayer(ost) {
   const wrap = document.createElement("div");
   wrap.className = "ost-player";
-  wrap.innerHTML =
-    '<div class="ost-copy">' +
-      '<span class="ost-label">VOLUME OST</span>' +
-      '<strong>' + escapeHtml(ost.title) + '</strong>' +
-      '<span>' + escapeHtml(ost.subtitle || "Original Theme") + '</span>' +
-    '</div>' +
-    '<audio controls preload="metadata" autoplay>' +
-      '<source src="' + encodeURI(ost.file) + '" type="audio/wav">' +
-      'Your browser does not support audio playback.' +
-    '</audio>';
-  const audio = wrap.querySelector("audio");
-  audio.addEventListener("play", () => wrap.classList.add("is-playing"));
-  audio.addEventListener("pause", () => wrap.classList.remove("is-playing"));
-  audio.addEventListener("ended", () => wrap.classList.remove("is-playing"));
+
+  const copy = document.createElement("div");
+  copy.className = "ost-copy";
+
+  const label = document.createElement("span");
+  label.className = "ost-label";
+  label.textContent = "VOLUME OST";
+
+  const title = document.createElement("strong");
+  title.textContent = ost.title;
+
+  const subtitle = document.createElement("span");
+  subtitle.textContent = ost.subtitle || "Original Theme";
+
+  copy.append(label, title, subtitle);
+
+  const audio = document.createElement("audio");
+  audio.controls = true;
+  audio.preload = "metadata";
+
+  const source = document.createElement("source");
+  source.src = ost.file;
+  source.type = "audio/mpeg";
+  audio.appendChild(source);
+
+  wrap.append(copy, audio);
   return wrap;
 }
