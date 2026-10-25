@@ -1,4 +1,4 @@
-Chapter 20 — The Mysterious CEO
+# Chapter 20 — The Mysterious CEO
 Han Ji-hoon had worked at Haetae Cyber long enough to know when something didn't make sense.
 Usually, he ignored it.
 Every company had strange things.
