@@ -39,24 +39,20 @@ function createReaderOst(ost) {
 
   const audio = wrap.querySelector("audio");
   if (ost.file.startsWith("gzip-base64:")) {
-    const encoded = ost.file.slice(12);
-    const bytes = Uint8Array.from(atob(encoded), c => c.charCodeAt(0));
-    const compressedUrl = URL.createObjectURL(new Blob([bytes], {type:"application/gzip"}));
-    fetch(compressedUrl).then(r => r.body.pipeThrough(new DecompressionStream("gzip")).getReader()).then(async reader => {
-      const chunks = [];
-      let total = 0;
-      while (true) {
-        const {done, value} = await reader.read();
-        if (done) break;
-        chunks.push(value); total += value.length;
-      }
-      const out = new Uint8Array(total);
-      let offset = 0;
-      for (const chunk of chunks) { out.set(chunk, offset); offset += chunk.length; }
-      URL.revokeObjectURL(compressedUrl);
-      audio.src = URL.createObjectURL(new Blob([out], {type:"audio/ogg"}));
+    try {
+      const encoded = ost.file.slice(12);
+      const binary = atob(encoded);
+      const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+      const compressed = new Blob([bytes], {type:"application/gzip"});
+      const decompressed = compressed.stream().pipeThrough(new DecompressionStream("gzip"));
+      const out = new Uint8Array(await new Response(decompressed).arrayBuffer());
+      const audioUrl = URL.createObjectURL(new Blob([out], {type:"audio/ogg; codecs=opus"}));
+      audio.src = audioUrl;
       audio.load();
-    }).catch(() => {});
+      audio.addEventListener("error", () => console.error("Reborn Hour OST audio decode error"), {once:true});
+    } catch (error) {
+      console.error("Reborn Hour OST load error:", error);
+    }
   } else {
     const source = document.createElement("source");
     source.src = ost.file;
