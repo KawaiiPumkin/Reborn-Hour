@@ -1,5 +1,5 @@
 const arcs = [
-  {number:"I",label:"VOLUME I",title:"A New Beginning",subtitle:"The first step into a life neither of them expected.",start:1,end:7,ost:{title:"A New Beginning",file:"audio/Reborn_Hour_Volume_I_A_New_Beginning_Theme.wav",subtitle:"Volume I Original Theme"}},
+  {number:"I",label:"VOLUME I",title:"A New Beginning",subtitle:"The first step into a life neither of them expected.",start:1,end:7,ost:{title:"A New Beginning",file:"audio/Reborn_Hour_Volume_I_A_New_Beginning_Theme.mp3",subtitle:"Volume I Original Theme"}},
   {number:"II",label:"VOLUME II",title:"Under the Same Roof",subtitle:"Two lonely people begin sharing more than a building.",start:8,end:14},
   {number:"III",label:"VOLUME III",title:"The Past Returns",subtitle:"Some things you leave behind do not stay there.",start:15,end:21},
   {number:"IV",label:"VOLUME IV",title:"The Price of Fate",subtitle:"Every future he changes asks for something in return.",start:22,end:25.5},
