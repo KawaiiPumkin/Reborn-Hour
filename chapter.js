@@ -8,68 +8,6 @@ const nextButton = document.getElementById("next");
 const COUNTER_BASE = "https://countapi.mileshilliard.com/api/v1";
 const COUNTER_NAMESPACE = "reborn_hour_kawaii_pumkin_7f3a91";
 const RAW_BASE = "https://raw.githubusercontent.com/KawaiiPumkin/Reborn-Hour/main/";
-const OST_BY_VOLUME = [
-  {start:1,end:7,label:"VOLUME I",title:"A New Beginning",subtitle:"Volume I Original Theme",file:"gzip-base64:H4sICOkd3moCA29zdC10aW55Lm9nZwC9mmtMU2cYgFuo3G9yKRctFCkCciktWApSEAFhiICALYKgRUoxcnEiF+fGGpUFxrzg2IZZtmUEdLAt1GEchm1sWdCJi2Ea3UhYcFsQ2AxuZJcowvZ+SN5vf/3zNiFP0nM4Dw+Uc77vOyfbaMwTWAhWXq8HX1MzXi3PmRe6ZR+sq0036MuEQrXQNLS8QzbbXfD/3YXA6AyzQqhhu+frjbUO8E6mvr5cpYiIiVBERrE9JPBlqN5XU2Y4pIFt+2CbIhY2KqSV+0tr4BufHnjFsnxg9kN5NaW8rBQ+86vxmV8rXQ1C1FsCJ452dhPqTUoL1IuAZ9vL3qCsn+P6VcCByZFQyvpeS9RbAfPj48WU9QYR6q2Bh4YbL1PWS1eh3gY49cD6Bcr6Ca63BeZ8GhpEWf+WFertWP2wjvSTn2eNentgyr8V9ZT1TjaoZydP/femR5T1o1zvCHyoFTlR1jfbot4JWPW7rz1lfZId6p3ZSVep/Yqy/gnXuwC/0A6XUNYP2qN+NfDN8n8SKOuXBwtP9a5AsY9bMWW93BH1bsD2qabDlPW/cr07MCg+doGy/rwT6j3YKO7G1KuU9Xpn1IuBhQUHoinrJS6o9wR2KM01lPU/cL0XsGfMkrS+YzXqvYEzPR9UUtZnu6LeB+irM4RR1tu7oX4NUGUMz6Ssv8r1a9loZ6GV9P/+mDvq2bxMvn3XPcp6jQfqfVm9sjuGsv4R1/sBDwxIv6SsvyRGvRQ41Pz8HGX9QU/U+wN9RrIcKetDvVC/Dvh+xkgsZf001wcAM051/U1Z3+WNehm74t0PIf3bl/igPhD47tL1U5T13mtQvx54RBI5QFl/h+uD2Dh/XPciZf2ZtagPZp9EB/MNyvpMCepDgLPH+/SU9da+qN8A3N129zZl/ddcHwq8ZZcro6xv8kN9GJtgL/14l7I+Tor6cDb0y8m/Qln/F9dHAM1pxyiXFQUX/VEvB3Y2jG6jrK9ch/pI4M3aK9cp64MDUK8A3k/+o5ey/heuVwI/bFT1UNa/J0N9FLvgume5U9YXBqI+mp2FHD45TVkvXo/6jcCxheolyvrvuF7FFld6i/Ip608GoT6G/TK0qpco69ODUc9uqZ193PiAsl4UgvpY4OTp25co64e5Po6tr0tOzFLWH92A+k3Ajya/DaCsV4WiPh44Pt9tSVk/z/UaoK5W+idl/cdhqE8ALo6Xka5u7A9HfSIbap4r8qKsl0WgfjPQKiG8jbL+HtcnAVuGe0lnOW/LUb8FqOmbraOs10WiPhkokzslUta7KlCfwhbU05opb6IKbnJ9KtDDVnaOsr5Vifqt7KRb0XeSsj41CvVpwIqqei1lvSAa9ens7sJg+0+U9Z9x/XPAmDvllA/OmBo2oj4DuFPuY6Ssj1Khfhsw4J3ACMr6Oa7PZPPttrQZyvq+GNRvB7oOObdQ1hvUqM8CHv9ZNkZZ7x+L+mw2xbxVaaasn+D6HPbEmqmEdJzfGYf6HcBqpZ5ygm3K24T6XKDDN5LPKeud41G/PPS7OPOQsn6U6/PZJKuify9l/Ssa1O9kU0yJSE1Zn5SAei2wy2Gxn7J+ket1bKSrt1NQ1g8mor4A6KesW6SsP7wZ9bvYFa+12IWyXp6E+kKgReuZx5T1v3F9EfA1G3fSu5jnt6B+N/DCBXsRZX1pMuqL2RRzOnqasl6SgvoSoLpgkfR5vXGu3wO8PH7kCWV9Ryrq97L6qj2kqxs5W1GvB17r9yQ864nUO7i+FJgrbjHD0f4DoGduLkUwAAA=",type:"audio/ogg"},
-  {start:8,end:14,label:"VOLUME II",title:"Under the Same Roof",subtitle:"Volume II Original Theme",file:"",type:"audio/mpeg"},
-  {start:15,end:21,label:"VOLUME III",title:"The Past Returns",subtitle:"Volume III Original Theme",file:"",type:"audio/mpeg"},
-  {start:22,end:25.5,label:"VOLUME IV",title:"The Price of Fate",subtitle:"Volume IV Original Theme",file:"",type:"audio/mpeg"},
-  {start:26,end:31,label:"VOLUME V",title:"The Future He Chooses",subtitle:"Volume V Original Theme",file:"",type:"audio/mpeg"}
-];
-
-function getVolumeOst(id) {
-  const match = /^chapter-(\d+)(\.5)?$/.exec(id);
-  if (!match) return null;
-  const n = Number(match[1]) + (match[2] ? 0.5 : 0);
-  const ost = OST_BY_VOLUME.find(item => n >= item.start && n <= item.end) || null;
-  return ost && ost.file ? ost : null;
-}
-
-function createReaderOst(ost) {
-  const wrap = document.createElement("section");
-  wrap.className = "reader-ost";
-  wrap.innerHTML =
-    '<div class="reader-ost-heading">' +
-      '<span class="ost-label">' + escapeHtml(ost.label) + ' · ORIGINAL SOUNDTRACK</span>' +
-      '<h2>' + escapeHtml(ost.title) + '</h2>' +
-      '<p>' + escapeHtml(ost.subtitle) + '</p>' +
-    '</div>' +
-    '<audio controls preload="metadata">' +
-      'Your browser does not support audio playback.' +
-    '</audio>';
-
-  const audio = wrap.querySelector("audio");
-  if (ost.file.startsWith("gzip-base64:")) {
-    try {
-      const encoded = ost.file.slice(12);
-      const binary = atob(encoded);
-      const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
-      const compressed = new Blob([bytes], {type:"application/gzip"});
-      if (typeof DecompressionStream === "undefined") {
-        throw new Error("This browser does not support gzip audio decompression.");
-      }
-      const decompressed = compressed.stream().pipeThrough(new DecompressionStream("gzip"));
-      new Response(decompressed).arrayBuffer().then(buffer => {
-        const audioBlob = new Blob([buffer], {type:"audio/ogg; codecs=opus"});
-        const audioUrl = URL.createObjectURL(audioBlob);
-        audio.src = audioUrl;
-        audio.load();
-        audio.addEventListener("error", () => console.error("Reborn Hour OST audio decode error"), {once:true});
-      }).catch(error => {
-        console.error("Reborn Hour OST decompression error:", error);
-      });
-    } catch (error) {
-      console.error("Reborn Hour OST load error:", error);
-    }
-  } else {
-    const source = document.createElement("source");
-    source.src = ost.file;
-    source.type = ost.type;
-    audio.appendChild(source);
-  }
-  return wrap;
-}
-
-
 const BUILTIN_CHAPTERS = [
   {
     "id": "prologue",
@@ -316,8 +254,6 @@ async function loadReader() {
     const lines = markdown.replace(/^\uFEFF/, "").split(/\r?\n/);
 
     chapterContainer.replaceChildren();
-    const ost = getVolumeOst(chapter.id);
-    if (ost) chapterContainer.appendChild(createReaderOst(ost));
 
     const story = document.createElement("div");
     story.className = "chapter-story";
