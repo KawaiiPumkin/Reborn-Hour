@@ -1,4 +1,4 @@
-Chapter 26 — The Black Figure
+# Chapter 26 — The Black Figure
 Rain tapped softly against the apartment windows.
 It wasn't heavy.
 Just enough to make the city outside look slightly blurred.
