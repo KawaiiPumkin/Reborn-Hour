@@ -203,7 +203,7 @@ async function loadChapters() {
   let chapters = BUILTIN_CHAPTERS.slice();
 
   try {
-    const response = await fetch("chapters.json?v=9", {cache:"no-store"});
+    const response = await fetch("chapters.json?v=10", {cache:"no-store"});
     if (response.ok) {
       const remote = await response.json();
       const remoteMap = new Map((Array.isArray(remote) ? remote : []).map(ch => [ch.id,ch]));
@@ -267,18 +267,6 @@ function renderChapters(chapters, list) {
     assigned.add("epilogue");
   }
 
-  const remaining = chapters.filter(ch => !assigned.has(ch.id));
-  if (remaining.length) {
-    const section = document.createElement("section");
-    section.className = "volume volume-more";
-    section.innerHTML =
-      '<div class="volume-heading"><div class="volume-number">+</div>' +
-      '<div class="volume-copy"><span class="volume-label">MORE</span><h2>Chapters</h2><p>More of the story.</p></div></div>' +
-      '<div class="chapter-list-inner"></div>';
-    const inner = section.querySelector(".chapter-list-inner");
-    remaining.forEach(ch => inner.appendChild(createChapter(ch)));
-    list.appendChild(section);
-  }
 }
 
 function createPrologue(chapter) {
@@ -293,7 +281,6 @@ function createPrologue(chapter) {
 }
 
 function createChapter(chapter,isPrologue=false) {
-  if (chapter.id === "epilogue") isPrologue = true;
   const link = document.createElement("a");
   link.className = "chapter-card";
   link.href = "chapter.html?id=" + encodeURIComponent(chapter.id);
