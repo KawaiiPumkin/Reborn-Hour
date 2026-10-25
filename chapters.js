@@ -2,7 +2,7 @@ const arcs = [
   {number:"I",label:"VOLUME I",title:"A New Beginning",subtitle:"The first step into a life neither of them expected.",start:1,end:7},
   {number:"II",label:"VOLUME II",title:"Under the Same Roof",subtitle:"Two lonely people begin sharing more than a building.",start:8,end:14},
   {number:"III",label:"VOLUME III",title:"The Past Returns",subtitle:"Some things you leave behind do not stay there.",start:15,end:21},
-  {number:"IV",label:"VOLUME IV",title:"The Price of Fate",subtitle:"Every future he changes asks for something in return.",start:22,end:25},
+  {number:"IV",label:"VOLUME IV",title:"The Price of Fate",subtitle:"Every future he changes asks for something in return.",start:22,end:25.5},
   {number:"V",label:"VOLUME V",title:"The Future He Chooses",subtitle:"When the future finally demands a choice.",start:26,end:31}
 ];
 
@@ -203,7 +203,7 @@ async function loadChapters() {
   let chapters = BUILTIN_CHAPTERS.slice();
 
   try {
-    const response = await fetch("chapters.json?v=6", {cache:"no-store"});
+    const response = await fetch("chapters.json?v=9", {cache:"no-store"});
     if (response.ok) {
       const remote = await response.json();
       const remoteMap = new Map((Array.isArray(remote) ? remote : []).map(ch => [ch.id,ch]));
@@ -293,6 +293,7 @@ function createPrologue(chapter) {
 }
 
 function createChapter(chapter,isPrologue=false) {
+  if (chapter.id === "epilogue") isPrologue = true;
   const link = document.createElement("a");
   link.className = "chapter-card";
   link.href = "chapter.html?id=" + encodeURIComponent(chapter.id);
