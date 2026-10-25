@@ -10,17 +10,18 @@ const COUNTER_NAMESPACE = "reborn_hour_kawaii_pumkin_7f3a91";
 const RAW_BASE = "https://raw.githubusercontent.com/KawaiiPumkin/Reborn-Hour/main/";
 const OST_BY_VOLUME = [
   {start:1,end:7,label:"VOLUME I",title:"A New Beginning",subtitle:"Volume I Original Theme",file:"audio/Reborn_Hour_Volume_I_A_New_Beginning_Theme.mp3",type:"audio/mpeg"},
-  {start:8,end:14,label:"VOLUME II",title:"Under the Same Roof",subtitle:"Volume II Original Theme",file:"audio/Reborn_Hour_Volume_II_Under_the_Same_Roof_Theme.mp3",type:"audio/mpeg"},
-  {start:15,end:21,label:"VOLUME III",title:"The Past Returns",subtitle:"Volume III Original Theme",file:"audio/Reborn_Hour_Volume_III_The_Past_Returns_Theme.mp3",type:"audio/mpeg"},
-  {start:22,end:25.5,label:"VOLUME IV",title:"The Price of Fate",subtitle:"Volume IV Original Theme",file:"audio/Reborn_Hour_Volume_IV_The_Price_of_Fate_Theme.mp3",type:"audio/mpeg"},
-  {start:26,end:31,label:"VOLUME V",title:"The Future He Chooses",subtitle:"Volume V Original Theme",file:"audio/Reborn_Hour_Volume_V_The_Future_He_Chooses_Theme.mp3",type:"audio/mpeg"}
+  {start:8,end:14,label:"VOLUME II",title:"Under the Same Roof",subtitle:"Volume II Original Theme",file:"",type:"audio/mpeg"},
+  {start:15,end:21,label:"VOLUME III",title:"The Past Returns",subtitle:"Volume III Original Theme",file:"",type:"audio/mpeg"},
+  {start:22,end:25.5,label:"VOLUME IV",title:"The Price of Fate",subtitle:"Volume IV Original Theme",file:"",type:"audio/mpeg"},
+  {start:26,end:31,label:"VOLUME V",title:"The Future He Chooses",subtitle:"Volume V Original Theme",file:"",type:"audio/mpeg"}
 ];
 
 function getVolumeOst(id) {
   const match = /^chapter-(\d+)(\.5)?$/.exec(id);
   if (!match) return null;
   const n = Number(match[1]) + (match[2] ? 0.5 : 0);
-  return OST_BY_VOLUME.find(ost => n >= ost.start && n <= ost.end) || null;
+  const ost = OST_BY_VOLUME.find(item => n >= item.start && n <= item.end) || null;
+  return ost && ost.file ? ost : null;
 }
 
 function createReaderOst(ost) {
