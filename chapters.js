@@ -346,16 +346,16 @@ function createOstPlayer(ost) {
     try {
       const encoded = ost.file.slice(12);
       const binary = atob(encoded);
-      const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+      const bytes = Uint8Array.from(binary, ch => ch.charCodeAt(0));
       const compressed = new Blob([bytes], {type:"application/gzip"});
       const decompressed = compressed.stream().pipeThrough(new DecompressionStream("gzip"));
-      const out = new Uint8Array(await new Response(decompressed).arrayBuffer());
-      const audioUrl = URL.createObjectURL(new Blob([out], {type:"audio/ogg; codecs=opus"}));
-      audio.src = audioUrl;
-      audio.load();
-      audio.addEventListener("error", () => console.error("Reborn Hour OST audio decode error"), {once:true});
+      new Response(decompressed).arrayBuffer().then(buffer => {
+        const audioUrl = URL.createObjectURL(new Blob([buffer], {type:"audio/ogg; codecs=opus"}));
+        audio.src = audioUrl;
+        audio.load();
+      }).catch(error => console.error("Reborn Hour OST load error:", error));
     } catch (error) {
-      console.error("Reborn Hour OST load error:", error);
+      console.error("Reborn Hour OST setup error:", error);
     }
   } else {
     const source = document.createElement("source");
