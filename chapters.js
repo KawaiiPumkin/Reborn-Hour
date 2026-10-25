@@ -1,5 +1,5 @@
 const arcs = [
-  {number:"I",label:"VOLUME I",title:"A New Beginning",subtitle:"The first step into a life neither of them expected.",start:1,end:7},
+  {number:"I",label:"VOLUME I",title:"A New Beginning",subtitle:"The first step into a life neither of them expected.",start:1,end:7,ost:{title:"A New Beginning",file:"audio/Reborn_Hour_Volume_I_A_New_Beginning_Theme.wav",subtitle:"Volume I Original Theme"}},
   {number:"II",label:"VOLUME II",title:"Under the Same Roof",subtitle:"Two lonely people begin sharing more than a building.",start:8,end:14},
   {number:"III",label:"VOLUME III",title:"The Past Returns",subtitle:"Some things you leave behind do not stay there.",start:15,end:21},
   {number:"IV",label:"VOLUME IV",title:"The Price of Fate",subtitle:"Every future he changes asks for something in return.",start:22,end:25.5},
@@ -244,7 +244,9 @@ function renderChapters(chapters, list) {
           '<h2>' + escapeHtml(arc.title) + '</h2>' +
           '<p>' + escapeHtml(arc.subtitle) + '</p>' +
         '</div>' +
-      '</div><div class="chapter-list-inner"></div>';
+      '</div>' +
+      (arc.ost ? createOstPlayer(arc.ost) : '') +
+      '<div class="chapter-list-inner"></div>';
 
     const inner = section.querySelector(".chapter-list-inner");
     matches.forEach(ch => {
@@ -310,4 +312,25 @@ function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, character => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
   }[character]));
+}
+
+
+function createOstPlayer(ost) {
+  const wrap = document.createElement("div");
+  wrap.className = "ost-player";
+  wrap.innerHTML =
+    '<div class="ost-copy">' +
+      '<span class="ost-label">VOLUME OST</span>' +
+      '<strong>' + escapeHtml(ost.title) + '</strong>' +
+      '<span>' + escapeHtml(ost.subtitle || "Original Theme") + '</span>' +
+    '</div>' +
+    '<audio controls preload="metadata" autoplay>' +
+      '<source src="' + encodeURI(ost.file) + '" type="audio/wav">' +
+      'Your browser does not support audio playback.' +
+    '</audio>';
+  const audio = wrap.querySelector("audio");
+  audio.addEventListener("play", () => wrap.classList.add("is-playing"));
+  audio.addEventListener("pause", () => wrap.classList.remove("is-playing"));
+  audio.addEventListener("ended", () => wrap.classList.remove("is-playing"));
+  return wrap;
 }
