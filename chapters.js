@@ -245,8 +245,12 @@ function renderChapters(chapters, list) {
           '<p>' + escapeHtml(arc.subtitle) + '</p>' +
         '</div>' +
       '</div>' +
-      (arc.ost ? createOstPlayer(arc.ost) : '') +
+      (arc.ost ? '<div class="ost-slot"></div>' : '') +
       '<div class="chapter-list-inner"></div>';
+
+    if (arc.ost) {
+      section.querySelector(".ost-slot").appendChild(createOstPlayer(arc.ost));
+    }
 
     const inner = section.querySelector(".chapter-list-inner");
     matches.forEach(ch => {
