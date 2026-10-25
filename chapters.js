@@ -3,30 +3,196 @@ const arcs = [
   {number:"II",label:"VOLUME II",title:"Under the Same Roof",subtitle:"Two lonely people begin sharing more than a building.",start:8,end:14},
   {number:"III",label:"VOLUME III",title:"The Past Returns",subtitle:"Some things you leave behind do not stay there.",start:15,end:21},
   {number:"IV",label:"VOLUME IV",title:"The Price of Fate",subtitle:"Every future he changes asks for something in return.",start:22,end:25},
-  {number:"V",label:"VOLUME V",title:"The Future He Chooses",subtitle:"When the future finally demands a choice.",start:26,end:30}
+  {number:"V",label:"VOLUME V",title:"The Future He Chooses",subtitle:"When the future finally demands a choice.",start:26,end:31}
 ];
 
 const BUILTIN_CHAPTERS = [
-  ["prologue","The Angel Was Born","prologue.md"],
-  ["chapter-01","A New Beginning","chapter-01.md"],
-  ["chapter-02","The Quiet Employee","chapter-02.md"],
-  ["chapter-03","You're Training Her","chapter-03.md"],
-  ["chapter-04","You're Worse Than Me","chapter-04.md"],
-  ["chapter-05","Don't Give Up","chapter-05.md"],
-  ["chapter-06","The Smile","chapter-06.md"],
-  ["chapter-07","Two Broken People","chapter-07.md"],
-  ["chapter-08","The Apartment","chapter-08.md"],
-  ["chapter-09","A Strange Advertisement","chapter-09.md"],
-  ["chapter-10","Same Building","chapter-10.md"],
-  ["chapter-11","Don't Let Me Cook","chapter-11.md"],
-  ["chapter-12","Seo-jun Knows","chapter-12.md"],
-  ["chapter-13","The First Shadow","chapter-13.md"],
-  ["chapter-14","Someone From Before","chapter-14.md"],
-  ["chapter-15","Min-seo","chapter-15.md"],
-  ["chapter-16","The Difference","chapter-16.md"],
-  ["chapter-16.5","Something She Couldn’t Ignore","chapter-16.5.md"],
-  ["chapter-17","You Deserve It","chapter-17.md"]
-].map(([id,title,file]) => ({id,title,file}));
+  {
+    "id": "prologue",
+    "title": "The Angel Was Born",
+    "file": "prologue.md"
+  },
+  {
+    "id": "chapter-01",
+    "title": "A New Beginning",
+    "file": "chapter-01.md"
+  },
+  {
+    "id": "chapter-02",
+    "title": "The Quiet Employee",
+    "file": "chapter-02.md"
+  },
+  {
+    "id": "chapter-03",
+    "title": "You're Training Her",
+    "file": "chapter-03.md"
+  },
+  {
+    "id": "chapter-04",
+    "title": "You're Worse Than Me",
+    "file": "chapter-04.md"
+  },
+  {
+    "id": "chapter-05",
+    "title": "Don't Give Up",
+    "file": "chapter-05.md"
+  },
+  {
+    "id": "chapter-06",
+    "title": "The Smile",
+    "file": "chapter-06.md"
+  },
+  {
+    "id": "chapter-07",
+    "title": "Two Broken People",
+    "file": "chapter-07.md"
+  },
+  {
+    "id": "chapter-08",
+    "title": "The Apartment",
+    "file": "chapter-08.md"
+  },
+  {
+    "id": "chapter-09",
+    "title": "A Strange Advertisement",
+    "file": "chapter-09.md"
+  },
+  {
+    "id": "chapter-10",
+    "title": "Same Building",
+    "file": "chapter-10.md"
+  },
+  {
+    "id": "chapter-11",
+    "title": "Don't Let Me Cook",
+    "file": "chapter-11.md"
+  },
+  {
+    "id": "chapter-12",
+    "title": "Seo-jun Knows",
+    "file": "chapter-12.md"
+  },
+  {
+    "id": "chapter-13",
+    "title": "The First Shadow",
+    "file": "chapter-13.md"
+  },
+  {
+    "id": "chapter-14",
+    "title": "Someone From Before",
+    "file": "chapter-14.md"
+  },
+  {
+    "id": "chapter-15",
+    "title": "Min-seo",
+    "file": "chapter-15.md"
+  },
+  {
+    "id": "chapter-16",
+    "title": "The Difference",
+    "file": "chapter-16.md"
+  },
+  {
+    "id": "chapter-16.5",
+    "title": "Something She Couldn’t Ignore",
+    "file": "chapter-16.5.md"
+  },
+  {
+    "id": "chapter-17",
+    "title": "You Deserve It",
+    "file": "chapter-17.md"
+  },
+  {
+    "id": "chapter-18",
+    "title": "What Happened to Me",
+    "file": "chapter-18.md"
+  },
+  {
+    "id": "chapter-18.5",
+    "title": "The Girl at the Café",
+    "file": "chapter-18.5.md"
+  },
+  {
+    "id": "chapter-19",
+    "title": "Seo-jun’s Problem",
+    "file": "chapter-19.md"
+  },
+  {
+    "id": "chapter-19.5",
+    "title": "Their First Date",
+    "file": "chapter-19.5.md"
+  },
+  {
+    "id": "chapter-20",
+    "title": "The Mysterious CEO",
+    "file": "chapter-20.md"
+  },
+  {
+    "id": "chapter-21",
+    "title": "I’ll Find You",
+    "file": "chapter-21.md"
+  },
+  {
+    "id": "chapter-22",
+    "title": "One Hour Ahead",
+    "file": "chapter-22.md"
+  },
+  {
+    "id": "chapter-23",
+    "title": "Living Together",
+    "file": "chapter-23.md"
+  },
+  {
+    "id": "chapter-24",
+    "title": "The People Around Us",
+    "file": "chapter-24.md"
+  },
+  {
+    "id": "chapter-25",
+    "title": "The Past Doesn’t Deserve Your Death",
+    "file": "chapter-25.md"
+  },
+  {
+    "id": "chapter-25.5",
+    "title": "What We Were",
+    "file": "chapter-25.5.md"
+  },
+  {
+    "id": "chapter-26",
+    "title": "The Black Figure",
+    "file": "chapter-26.md"
+  },
+  {
+    "id": "chapter-27",
+    "title": "Something Is Coming",
+    "file": "chapter-27.md"
+  },
+  {
+    "id": "chapter-28",
+    "title": "The Storm",
+    "file": "chapter-28.md"
+  },
+  {
+    "id": "chapter-29",
+    "title": "One Hour",
+    "file": "chapter-29.md"
+  },
+  {
+    "id": "chapter-30",
+    "title": "The Future I Choose",
+    "file": "chapter-30.md"
+  },
+  {
+    "id": "chapter-31",
+    "title": "Ten Years",
+    "file": "chapter-31.md"
+  },
+  {
+    "id": "epilogue",
+    "title": "The Future",
+    "file": "epilogue.md"
+  }
+];
 
 document.addEventListener("DOMContentLoaded", loadChapters);
 
@@ -37,7 +203,7 @@ async function loadChapters() {
   let chapters = BUILTIN_CHAPTERS.slice();
 
   try {
-    const response = await fetch("chapters.json?v=5", {cache:"no-store"});
+    const response = await fetch("chapters.json?v=6", {cache:"no-store"});
     if (response.ok) {
       const remote = await response.json();
       const remoteMap = new Map((Array.isArray(remote) ? remote : []).map(ch => [ch.id,ch]));
@@ -88,6 +254,19 @@ function renderChapters(chapters, list) {
     list.appendChild(section);
   }
 
+  const epilogue = chapters.find(ch => ch.id === "epilogue");
+  if (epilogue) {
+    const section = document.createElement("section");
+    section.className = "prologue-section epilogue-section";
+    section.innerHTML =
+      '<div class="prologue-heading"><span class="prologue-label">THE END</span>' +
+      '<h2>Epilogue</h2><p>The future is no longer something to see. It is something to live.</p></div>' +
+      '<div class="chapter-list-inner"></div>';
+    section.querySelector(".chapter-list-inner").appendChild(createChapter(epilogue, true));
+    list.appendChild(section);
+    assigned.add("epilogue");
+  }
+
   const remaining = chapters.filter(ch => !assigned.has(ch.id));
   if (remaining.length) {
     const section = document.createElement("section");
@@ -120,7 +299,7 @@ function createChapter(chapter,isPrologue=false) {
   link.setAttribute("aria-label","Read " + chapter.title);
   const n = getChapterNumber(chapter.id);
   const number = isPrologue ? "00" : formatNumber(n);
-  const label = isPrologue ? "PROLOGUE" : (n % 1 ? "CHAPTER " + n : "CHAPTER " + String(n).padStart(2,"0"));
+  const label = isPrologue ? (chapter.id === "epilogue" ? "EPILOGUE" : "PROLOGUE") : (n % 1 ? "CHAPTER " + n : "CHAPTER " + String(n).padStart(2,"0"));
   link.innerHTML =
     '<span class="chapter-number">' + escapeHtml(number) + '</span>' +
     '<span class="chapter-info"><span class="chapter-label">' + escapeHtml(label) + '</span>' +
