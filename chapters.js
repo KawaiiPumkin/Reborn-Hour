@@ -342,10 +342,33 @@ function createOstPlayer(ost) {
   audio.controls = true;
   audio.preload = "metadata";
 
-  const source = document.createElement("source");
-  source.src = ost.file;
-  source.type = "audio/mpeg";
-  audio.appendChild(source);
+  if (ost.file.startsWith("gzip-base64:")) {
+    const encoded = ost.file.slice(12);
+    const bytes = Uint8Array.from(atob(encoded), c => c.charCodeAt(0));
+    const blob = new Blob([bytes], {type:"application/gzip"});
+    const compressedUrl = URL.createObjectURL(blob);
+    fetch(compressedUrl).then(r => r.body.pipeThrough(new DecompressionStream("gzip")).getReader()).then(async reader => {
+      const chunks = [];
+      let total = 0;
+      while (true) {
+        const {done, value} = await reader.read();
+        if (done) break;
+        chunks.push(value); total += value.length;
+      }
+      const out = new Uint8Array(total);
+      let offset = 0;
+      for (const chunk of chunks) { out.set(chunk, offset); offset += chunk.length; }
+      URL.revokeObjectURL(compressedUrl);
+      const audioUrl = URL.createObjectURL(new Blob([out], {type:"audio/ogg"}));
+      audio.src = audioUrl;
+      audio.load();
+    }).catch(() => {});
+  } else {
+    const source = document.createElement("source");
+    source.src = ost.file;
+    source.type = ost.type || "audio/mpeg";
+    audio.appendChild(source);
+  }
 
   wrap.append(copy, audio);
   return wrap;
