@@ -1,4 +1,4 @@
-Chapter 23 — Living Together
+# Chapter 23 — Living Together
 It happened without either of them planning it.
 For the past few weeks, Ha-eun had been spending more nights at Ha-Kim's apartment than her own.
 At first, it was because she was tired.
