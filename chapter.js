@@ -8,6 +8,37 @@ const nextButton = document.getElementById("next");
 const COUNTER_BASE = "https://countapi.mileshilliard.com/api/v1";
 const COUNTER_NAMESPACE = "reborn_hour_kawaii_pumkin_7f3a91";
 const RAW_BASE = "https://raw.githubusercontent.com/KawaiiPumkin/Reborn-Hour/main/";
+const OST_BY_VOLUME = [
+  {start:1,end:7,label:"VOLUME I",title:"A New Beginning",subtitle:"Volume I Original Theme",file:"audio/Reborn_Hour_Volume_I_A_New_Beginning_Theme.mp3",type:"audio/mpeg"},
+  {start:8,end:14,label:"VOLUME II",title:"Under the Same Roof",subtitle:"Volume II Original Theme",file:"audio/Reborn_Hour_Volume_II_Under_the_Same_Roof_Theme.mp3",type:"audio/mpeg"},
+  {start:15,end:21,label:"VOLUME III",title:"The Past Returns",subtitle:"Volume III Original Theme",file:"audio/Reborn_Hour_Volume_III_The_Past_Returns_Theme.mp3",type:"audio/mpeg"},
+  {start:22,end:25.5,label:"VOLUME IV",title:"The Price of Fate",subtitle:"Volume IV Original Theme",file:"audio/Reborn_Hour_Volume_IV_The_Price_of_Fate_Theme.mp3",type:"audio/mpeg"},
+  {start:26,end:31,label:"VOLUME V",title:"The Future He Chooses",subtitle:"Volume V Original Theme",file:"audio/Reborn_Hour_Volume_V_The_Future_He_Chooses_Theme.mp3",type:"audio/mpeg"}
+];
+
+function getVolumeOst(id) {
+  const match = /^chapter-(\d+)(\.5)?$/.exec(id);
+  if (!match) return null;
+  const n = Number(match[1]) + (match[2] ? 0.5 : 0);
+  return OST_BY_VOLUME.find(ost => n >= ost.start && n <= ost.end) || null;
+}
+
+function createReaderOst(ost) {
+  const wrap = document.createElement("section");
+  wrap.className = "reader-ost";
+  wrap.innerHTML =
+    '<div class="reader-ost-heading">' +
+      '<span class="ost-label">' + escapeHtml(ost.label) + ' · ORIGINAL SOUNDTRACK</span>' +
+      '<h2>' + escapeHtml(ost.title) + '</h2>' +
+      '<p>' + escapeHtml(ost.subtitle) + '</p>' +
+    '</div>' +
+    '<audio controls preload="metadata">' +
+      '<source src="' + encodeURI(ost.file) + '" type="' + ost.type + '">' +
+      'Your browser does not support audio playback.' +
+    '</audio>';
+  return wrap;
+}
+
 
 const BUILTIN_CHAPTERS = [
   {
@@ -208,8 +239,8 @@ function trackChapterRead(id) {
 
 async function fetchChapterFile(file) {
   const urls = [
-    file + "?v=10",
-    RAW_BASE + encodeURIComponent(file) + "?v=10"
+    file + "?v=11",
+    RAW_BASE + encodeURIComponent(file) + "?v=11"
   ];
 
   let lastError = null;
@@ -232,7 +263,7 @@ async function loadReader() {
     let chapters = BUILTIN_CHAPTERS.slice();
 
     try {
-      const response = await fetch("chapters.json?v=10", {cache:"no-store"});
+      const response = await fetch("chapters.json?v=11", {cache:"no-store"});
       if (response.ok) {
         const remote = await response.json();
         const map = new Map((Array.isArray(remote) ? remote : []).map(ch => [ch.id,ch]));
@@ -254,7 +285,13 @@ async function loadReader() {
     const markdown = await fetchChapterFile(chapter.file);
     const lines = markdown.replace(/^\uFEFF/, "").split(/\r?\n/);
 
-    chapterContainer.innerHTML = lines.map(line => {
+    chapterContainer.replaceChildren();
+    const ost = getVolumeOst(chapter.id);
+    if (ost) chapterContainer.appendChild(createReaderOst(ost));
+
+    const story = document.createElement("div");
+    story.className = "chapter-story";
+    story.innerHTML = lines.map(line => {
       const value = line.trim();
       if (!value) return "<br>";
       if (value.startsWith("# ")) {
@@ -262,6 +299,7 @@ async function loadReader() {
       }
       return `<p>${escapeHtml(value)}</p>`;
     }).join("");
+    chapterContainer.appendChild(story);
 
     if (currentIndex > 0) {
       previousButton.textContent = "←";
