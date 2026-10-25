@@ -208,8 +208,8 @@ function trackChapterRead(id) {
 
 async function fetchChapterFile(file) {
   const urls = [
-    file + "?v=8",
-    RAW_BASE + encodeURIComponent(file) + "?v=8"
+    file + "?v=10",
+    RAW_BASE + encodeURIComponent(file) + "?v=10"
   ];
 
   let lastError = null;
@@ -232,7 +232,7 @@ async function loadReader() {
     let chapters = BUILTIN_CHAPTERS.slice();
 
     try {
-      const response = await fetch("chapters.json?v=8", {cache:"no-store"});
+      const response = await fetch("chapters.json?v=10", {cache:"no-store"});
       if (response.ok) {
         const remote = await response.json();
         const map = new Map((Array.isArray(remote) ? remote : []).map(ch => [ch.id,ch]));
